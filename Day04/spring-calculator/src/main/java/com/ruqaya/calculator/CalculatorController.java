@@ -1,4 +1,4 @@
-package com.rama.calculator;
+package com.ruqaya.calculator;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
