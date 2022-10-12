@@ -1,13 +1,13 @@
-package com.ruqaya.controller;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class SpringBootRestApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.ruqaya.controller;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class SpringBootRestApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
