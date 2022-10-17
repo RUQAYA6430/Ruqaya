@@ -38,7 +38,7 @@ public class CalculatorWebControllerTest {
 
     @Test
     public void testAddition() throws Exception {
-        ResultActions responseEntity  = mockMvc.perform(get(addurl).param("a","4.0")
+        ResultActions responseEntity  = mockMvc.perform(get(addurl).header("a","4.0")
                 .param("b","3.0"));
         responseEntity.andExpect(status().isOk());
         String result = responseEntity.andReturn().getResponse().getContentAsString();
@@ -47,7 +47,7 @@ public class CalculatorWebControllerTest {
 
     @Test
     public void testSubstration() throws Exception {
-        ResultActions responseEntity  = mockMvc.perform(get(suburl).param("a","7.0")
+        ResultActions responseEntity  = mockMvc.perform(get(suburl).header("a","7.0")
                 .param("b","3.0"));
         responseEntity.andExpect(status().isOk());
         String result = responseEntity.andReturn().getResponse().getContentAsString();
@@ -56,7 +56,7 @@ public class CalculatorWebControllerTest {
 
     @Test
     public void testMultiplication() throws Exception {
-        ResultActions responseEntity  = mockMvc.perform(get(mulurl).param("a","5.0")
+        ResultActions responseEntity  = mockMvc.perform(get(mulurl).header("a","5.0")
                 .param("b","3.0"));
         responseEntity.andExpect(status().isOk());
         String result = responseEntity.andReturn().getResponse().getContentAsString();
@@ -65,7 +65,7 @@ public class CalculatorWebControllerTest {
 
     @Test
     public void testDivision() throws Exception {
-        ResultActions responseEntity  = mockMvc.perform(get(divurl).param("a","4.0")
+        ResultActions responseEntity  = mockMvc.perform(get(divurl).header("a","4.0")
                 .param("b","2.0"));
         responseEntity.andExpect(status().isOk());
         String result = responseEntity.andReturn().getResponse().getContentAsString();
@@ -74,12 +74,21 @@ public class CalculatorWebControllerTest {
 
     @Test
     public void testAddStr() throws Exception {
-        ResultActions responseEntity  = mockMvc.perform(get(addstrurl).param("a","hello")
+        ResultActions responseEntity  = mockMvc.perform(get(addstrurl).header("a","hello")
                 .param("b","test"));
         responseEntity.andExpect(status().isOk());
         String result = responseEntity.andReturn().getResponse().getContentAsString();
         assertEquals("hellotest", result);
     }
+
+    @Test
+    public void testsendPath() throws Exception {
+        ResultActions responseEntity  = mockMvc.perform(get("/sendpath/v.1"));
+        responseEntity.andExpect(status().isOk());
+        String result = responseEntity.andReturn().getResponse().getContentAsString();
+        assertEquals("v.1", result);
+    }
+
 
 
 
