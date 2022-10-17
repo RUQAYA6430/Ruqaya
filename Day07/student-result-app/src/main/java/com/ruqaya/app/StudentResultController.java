@@ -17,8 +17,8 @@ public class StudentResultController {
         return result;
     }
 
-//    @GetMapping("/get/all")
-//    public Map<String,StudentResult> getStudentResult(){ return studentResultMap; }
+    @GetMapping("/get/all")
+    public Map<String,StudentResult> getStudentResult(){ return studentResultMap; }
 
     @PostMapping("/save/studentResult")
     public void SaveStudentResult(@RequestBody @NotNull StudentResult studentResult){

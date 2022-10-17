@@ -7,19 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.http.HttpMethod;
 import org.springframework.util.Base64Utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 @RunWith(SpringRunner.class)
 @WebMvcTest({StudentResultController.class})
 @ActiveProfiles(value = "test")
@@ -66,17 +66,19 @@ public class StudentResultControllerTests {
         assertNotNull(result);
     }
 
-//    @Test
-//    public void testAllStudentResultGet() throws Exception {
-//        ResultActions responseEntity  = mockMvc.perform(get(getallurl));
-//        responseEntity.andExpect(status().isOk());
-//        String result = responseEntity.andReturn().getResponse().getContentAsString();
-//        assertNotNull(result);
-//    }
+    @Test
+    public void testAllStudentResultGet() throws Exception {
+        String secret = "Basic " + Base64Utils.encodeToString(("lec1"+":"+"password").getBytes());
+        ResultActions responseEntity  = mockMvc.perform(get(getallurl).header(HttpHeaders.AUTHORIZATION, secret));
+        responseEntity.andExpect(status().isOk());
+        String result = responseEntity.andReturn().getResponse().getContentAsString();
+        assertNotNull(result);
+    }
+
 
     @Test
     public void testSaveStudentResultPost() throws Exception {
-        String secret = "Basic " + Base64Utils.encodeToString(("user123"+":"+"password").getBytes());
+        String secret = "Basic " + Base64Utils.encodeToString(("lec1"+":"+"password").getBytes());
         StudentResult student=new StudentResult("name1", "rol01", "SCL1", 89, 76, 75, 90, 99);
         ResultActions responseEntity  = mockMvc.perform(post(posturl).header(HttpHeaders.AUTHORIZATION, secret).contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(student)).accept(MediaType.APPLICATION_JSON));
@@ -86,12 +88,12 @@ public class StudentResultControllerTests {
 
     @Test
     public void testUpdateStudentResultPut() throws Exception {
-        String secret1 = "Basic " + Base64Utils.encodeToString(("user123"+":"+"password").getBytes());
+        String secret1 = "Basic " + Base64Utils.encodeToString(("lec1"+":"+"password").getBytes());
         StudentResult studentResult=new StudentResult("name1", "rol01", "SCL1", 89, 76, 75, 90, 99);
         mockMvc.perform(post(posturl).header(HttpHeaders.AUTHORIZATION, secret1).contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(studentResult)).accept(MediaType.APPLICATION_JSON));
 
-        String secret2 = "Basic " + Base64Utils.encodeToString(("admin123"+":"+"password").getBytes());
+        String secret2 = "Basic " + Base64Utils.encodeToString(("lec1"+":"+"password").getBytes());
         ResultActions responseEntity  = mockMvc.perform(put(puturl).header(HttpHeaders.AUTHORIZATION, secret2).param("name","name1")
                 .param("schoolName","SCL2"));
         responseEntity.andExpect(status().isOk());

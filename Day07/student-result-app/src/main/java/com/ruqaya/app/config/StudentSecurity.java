@@ -12,10 +12,12 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/save/studentResult").hasAnyRole("USER")
-                .antMatchers(HttpMethod.PUT, "/update/studentResult").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/get/studentResult").hasAnyRole("USER")
-                .antMatchers(HttpMethod.DELETE, "/remove/studentResult").hasAnyRole("ADMIN").and().csrf().disable().headers()
+                .antMatchers(HttpMethod.POST, "/save/examResult").hasAnyRole("LEC")
+                .antMatchers(HttpMethod.PUT, "/update/examResult").hasAnyRole("LEC")
+                .antMatchers(HttpMethod.GET, "/get/examResult").hasAnyRole("STUDENT")
+                .antMatchers(HttpMethod.GET, "/get/all").hasAnyRole("STUDENT")
+                .antMatchers(HttpMethod.GET, "/get/all").hasAnyRole("LEC")
+                .antMatchers(HttpMethod.DELETE, "/remove/examResult").hasAnyRole("ADMIN").and().csrf().disable().headers()
                 .frameOptions().disable();
     }
 
@@ -24,6 +26,7 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("user123").password("{noop}password").roles("USER").and()
                 .withUser("admin123").password("{noop}password").roles("ADMIN").and().withUser("test123")
                 .password("{noop}password").roles("USER").and().withUser("ruqaya").password("{noop}password")
-                .roles("ADMIN");
+                .roles("ADMIN").and().withUser("lec1").password("{noop}password")
+                .roles("LEC");
     }
 }
