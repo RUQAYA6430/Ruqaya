@@ -1,0 +1,7 @@
+com\rama\db\repository\UsersRepository.class
+com\rama\db\controller\UsersController.class
+com\rama\db\model\Message.class
+com\rama\db\model\Users.class
+com\rama\db\SpringBootMysqldbApplication.class
+com\rama\db\repository\MessageDataRepository.class
+com\rama\db\controller\MessageController.class
